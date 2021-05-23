@@ -3,7 +3,7 @@ import json
 import os
 
 script_dir = os.path.dirname(__file__)
-filepath = './config.json'
+filepath = './wind_config.json'
 with open(os.path.join(script_dir, filepath)) as f:
     config_data = json.load(f)
 

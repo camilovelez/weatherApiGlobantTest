@@ -1,0 +1,77 @@
+{
+    "wind_speeds":[
+        1,
+        4,
+        10
+    ],
+    "wind_descriptions":[
+        "Slight breeze",
+        "Gentle breeze",
+        "Moderate winds",
+        "Strong winds"
+    ],
+    "wind_directions":[
+        {
+            "direction": "north-northeast",
+            "lower_limit": 11.25,
+            "upper_limit": 33.75
+        },{
+            "direction": "northeast",
+            "lower_limit": 33.75,
+            "upper_limit": 56.25
+        },{
+            "direction": "east-northeast",
+            "lower_limit": 56.25,
+            "upper_limit": 78.75
+        },{
+            "direction": "east",
+            "lower_limit": 78.75,
+            "upper_limit": 101.25
+        },{
+            "direction": "east-southeast",
+            "lower_limit": 101.25,
+            "upper_limit": 123.75
+        },{
+            "direction": "southeast",
+            "lower_limit": 123.75,
+            "upper_limit": 146.25
+        },{
+            "direction": "southeast-southeast",
+            "lower_limit": 146.25,
+            "upper_limit": 168.75
+        },{
+            "direction": "south",
+            "lower_limit": 168.75,
+            "upper_limit": 191.25
+        },{
+            "direction": "south-southwest",
+            "lower_limit": 191.25,
+            "upper_limit": 213.75  
+        },{
+            "direction": "southwest",
+            "lower_limit": 213.75,
+            "upper_limit": 236.25
+        },{
+            "direction": "west-southwest",
+            "lower_limit": 236.25,
+            "upper_limit": 258.75
+
+        },{
+            "direction": "west",
+            "lower_limit": 258.75,
+            "upper_limit": 281.25
+        },{
+            "direction": "west-northwest",
+            "lower_limit": 281.25,
+            "upper_limit": 303.75
+        },{
+            "direction": "northwest",
+            "lower_limit": 303.75,
+            "upper_limit": 326.25
+        },{
+            "direction": "north-northwest",
+            "lower_limit": 326.25,
+            "upper_limit": 348.75
+        }
+    ]
+}

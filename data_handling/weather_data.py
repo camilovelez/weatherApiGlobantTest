@@ -61,6 +61,3 @@ class WeatherData:
                 "temperature": self.temperature,
                 "pressure": self.pressure,
                 "humidity": self.humidity}
-
-    def as_string(self):
-        return json.dumps(self.as_dict())

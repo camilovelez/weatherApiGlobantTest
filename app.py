@@ -39,9 +39,8 @@ def request_weather_api(city, country):
     try:
         query_params = f"?q={city},{country}&units=metric&appid={API_ID}"
         requests_weather_api = requests.get(WEATHER_URL + WEATHER_ENDPOINT + query_params)
-        if requests_weather_api.status_code == 200:
-            response_data = requests_weather_api.json()
-            status_code = requests_weather_api.status_code
+        response_data = requests_weather_api.json()
+        status_code = requests_weather_api.status_code
     except Exception as e:
         print(e)
     return response_data, status_code
@@ -56,21 +55,28 @@ def weather():
     city = request.args.get("city")
     country = request.args.get("country")
 
-    if type(city) == str and type(country)==str:
+    if city is not None and city.isalpha() and country is not None and country.isalpha() and len(country) == 2:
+        
+        country = country.lower()
         cache_key = f"{city},{country}"
         cached_data = cache.get(cache_key)
         if cached_data is None:
-            response_weather_api, status_code = request_weather_api(city, country.lower())
+            response_weather_api, status_code = request_weather_api(city, country)
             if status_code == 200: 
-                response_data = WeatherData(response_weather_api).as_string()
+                response_data = WeatherData(response_weather_api).as_dict()
                 if cache_key in cache.cache._cache:
                     cache.delete(cache_key)
                 cache.add(cache_key, response_data)
+            elif status_code == 404:
+                response_data["error_message"] = response_weather_api["message"]
+
         else:
             response_data = cached_data
             status_code = 200
+    else:
+        response_data["error_message"] = "city and country must be provided and contain only letters, country must be 2 letters long"
     
-    return Response(response_data,
+    return Response(json.dumps(response_data),
                     status=status_code,
-                    mimetype='application/json')
+                    mimetype="application/json")
 

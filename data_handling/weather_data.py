@@ -13,8 +13,13 @@ class WeatherData:
     def __init__(self, data):
 
         time_zone_correction = data["timezone"]
-        self.sunset = self.convert_unix_timestamp(data["sys"]["sunset"] - time_zone_correction)
-        self.sunrise = self.convert_unix_timestamp(data["sys"]["sunrise"] - time_zone_correction)
+
+        sunset_timestamp = self.convert_unix_timestamp(data["sys"]["sunset"] - time_zone_correction)
+        self.sunset = self.get_hour_and_minute_from_timestamp(sunset_timestamp)
+            
+        sunrise_timestamp = self.convert_unix_timestamp(data["sys"]["sunrise"] - time_zone_correction)
+        self.sunrise = self.get_hour_and_minute_from_timestamp(sunrise_timestamp)
+
         self.location_name = f"{data['name']},{data['sys']['country']}"
         self.geo_coordinates = [data["coord"]["lat"], data["coord"]["lon"]]
         self.requested_time = self.convert_unix_timestamp(data["dt"])
@@ -26,6 +31,10 @@ class WeatherData:
 
     def convert_unix_timestamp(self, time_stamp):
         return datetime.utcfromtimestamp(time_stamp).strftime('%Y-%m-%d %H:%M:%S')
+    
+    def get_hour_and_minute_from_timestamp(self, timestamp):
+        split_string = timestamp.split(" ")[1].split(":")
+        return f"{split_string[0]}:{split_string[1]}"
 
     def get_wind_description(self, wind_speed, wind_direction):
         description = config_data["wind_descriptions"][-1]

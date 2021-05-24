@@ -50,7 +50,10 @@ def weather():
     response_data = dict()
     status_code = 400
 
-    # response_weather_api, status_code = json.loads('{"coord":{"lon":-74.0817,"lat":4.6097},"weather":[{"id":803,"main":"Clouds","description":"broken clouds","icon":"04d"}],"base":"stations","main":{"temp":18.73,"feels_like":18.43,"temp_min":18.73,"temp_max":18.73,"pressure":1014,"humidity":68,"sea_level":1014,"grnd_level":755},"visibility":10000,"wind":{"speed":1.69,"deg":163,"gust":2.98},"clouds":{"all":75},"dt":1621704337,"sys":{"type":1,"id":8582,"country":"CO","sunrise":1621680163,"sunset":1621724618},"timezone":-18000,"id":3688689,"name":"Bogotá","cod":200}'), 200
+    # response_weather_api, status_code = json.loads('{'coord': {'lon': -75.5636, 'lat': 6.2518}, 'weather': [{'id': 803, 'main': 'Clouds', 'description': 'broken clouds', 'icon': '04d'}], 
+    # 'base': 'stations', 'main': {'temp': 19.26, 'feels_like': 19.67, 'temp_min': 19.26, 'temp_max': 19.26, 'pressure': 1012, 'humidity': 93, 'sea_level': 1012, 'grnd_level': 850}, 
+    # 'visibility': 8410, 'wind': {'speed': 1.29, 'deg': 71, 'gust': 1.7}, 'clouds': {'all': 74}, 'dt': 1621810813, 'sys': {'country': 'CO', 'sunrise': 1621766769, 'sunset': 1621811534}, 
+    # 'timezone': -18000, 'id': 3674962, 'name': 'Medellín', 'cod': 200}'), 200
 
     city = request.args.get("city")
     country = request.args.get("country")

@@ -30,6 +30,7 @@ config = {
     "CACHE_DEFAULT_TIMEOUT": CACHE_DEFAULT_TIMEOUT
 }
 
+
 app = Flask(__name__)
 
 app.config.from_mapping(config)
@@ -96,3 +97,7 @@ def weather():
                     status=status_code,
                     mimetype="application/json")
 
+
+port = os.getenv('PORT', '5000')
+if __name__ == "__main__":
+    app.run(host='0.0.0.0', port=int(port))

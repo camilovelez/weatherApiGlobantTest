@@ -1,5 +1,6 @@
 import unittest
 import requests
+
 from app import request_weather_api, weather
 from data_handling.weather_data import WeatherData
 

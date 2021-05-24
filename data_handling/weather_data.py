@@ -1,10 +1,8 @@
-import json
-
 from .data_formatting import *
 from .forecast import Forecast
-from .weather import Weather
+from .shared_weather_data import SharedWeatherData
 
-class WeatherData(Weather):
+class WeatherData(SharedWeatherData):
 
     def __init__(self, weather_data, forecast_data):
 

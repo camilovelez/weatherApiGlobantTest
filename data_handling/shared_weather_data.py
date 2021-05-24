@@ -1,6 +1,6 @@
 from .data_formatting import *
 
-class Weather:
+class SharedWeatherData:
     
     def __init__(self, data):
 

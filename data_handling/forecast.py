@@ -9,7 +9,6 @@ class Forecast(SharedWeatherData):
         
         self.forecast_time = forecast_data.get("dt_txt")
 
-        # self.rain = format_rain(forecast_data.get("rain").get("3h"), -1)
         self.precipitation = format_precipitation(forecast_data.get("pop"))
 
 
@@ -20,5 +19,4 @@ class Forecast(SharedWeatherData):
                 "temperature": self.temperature,
                 "pressure": self.pressure,
                 "humidity": self.humidity,
-                # "rain": self.rain,
                 "precipitation": self.precipitation}

@@ -32,5 +32,15 @@ class WeatherApi:
 
     def get_data(self, city, country):
         weather_response_data, weather_status = self.get_weather_data(city, country)
-        forecast_response_data, forecast_status = self.get_forecast_data(city, country)
+
+        if weather_status == 200:
+            forecast_response_data, forecast_status = self.get_forecast_data(city, country)
+        else:
+            forecast_response_data = dict()
+            forecast_response_data["message"] = "an error occured while requesting weather data"
+            forecast_response_data, forecast_status = forecast_response_data, weather_status
+
         return weather_response_data, weather_status, forecast_response_data, forecast_status
+
+    def close_session(self):
+        self.request_session.close()

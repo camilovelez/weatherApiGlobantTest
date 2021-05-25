@@ -11,7 +11,7 @@ def convert_unix_timestamp(time_stamp):
     try:
         return datetime.utcfromtimestamp(time_stamp).strftime('%Y-%m-%d %H:%M:%S')
     except Exception as e:
-        print(e)
+        print(f"Exception thrown while validating converting timestamp: {e}")
         return ""
     
 def get_hour_and_minute_from_timestamp(unix_timestamp):
@@ -19,54 +19,54 @@ def get_hour_and_minute_from_timestamp(unix_timestamp):
         timestamp = convert_unix_timestamp(unix_timestamp).split(" ")[1].split(":")
         return f"{timestamp[0]}:{timestamp[1]}"
     except Exception as e:
-        print(e)
+        print(f"Exception thrown while gettting hour and minute from timestamp: {e}")
         return ""
 
 def get_wind_description(wind_speed, wind_direction):
-    if wind_direction > -1 and wind_direction <= 360:
-        description = config_data["wind_descriptions"][-1]
-        for index, ws in enumerate(config_data["wind_speeds"]):
-            if wind_speed <= ws:
-                description = config_data["wind_descriptions"][index]
-                break
-        
-        direction = "north"
-        for wd in config_data["wind_directions"]:
-            if wind_direction >= wd["lower_limit"] and wind_direction < wd["upper_limit"]:
-                direction = wd["direction"]
+    try:
+        if wind_speed >= 0 and wind_direction >= 0 and wind_direction <= 360:
+            description = config_data["wind_descriptions"][-1]
+            for index, ws in enumerate(config_data["wind_speeds"]):
+                if wind_speed <= ws:
+                    description = config_data["wind_descriptions"][index]
+                    break
+            
+            direction = "north"
+            for wd in config_data["wind_directions"]:
+                if wind_direction >= wd["lower_limit"] and wind_direction < wd["upper_limit"]:
+                    direction = wd["direction"]
 
-        return f"{description}, {wind_speed} m/s, {direction}"
-    else:
+            return f"{description}, {wind_speed} m/s, {direction}"
+        else:
+            return ""
+    except Exception as e:
+        print(f"Exception thrown while getting wind description: {e}")
         return ""
 
 def format_temperature(temperature):
-    if type(temperature) == float or type(temperature) == int:
+    if temperature is not None and (type(temperature) == float or type(temperature) == int) and temperature >= -273.15:
         return f"{temperature} °C"
     else:
         return ""
 
 def format_pressure(pressure):
-    if type(pressure) == int or type(pressure) == float:
-        return f"{pressure} °hpa"
+    if pressure is not None and (type(pressure) == int or type(pressure) == float):
+        return f"{pressure} hpa"
     else:
         return ""
 
 def format_humidity(humidity):
-    if type(humidity) == int or type(humidity) == float:
+    if humidity is not None and (type(humidity) == int or type(humidity) == float) and humidity >= 0 and humidity <= 100:
         return f"{humidity} %"
-    else:
-        return ""
-
-def format_rain(rain):
-    if type(rain) == float or type(rain) == int:
-        return f"{rain} mm during the last 3 hours"
     else:
         return ""
     
 
 def format_precipitation(precipitation):
-    if type(precipitation) == float or type(precipitation) == int:
-        return f"{precipitation * 100} %"
+    if (precipitation is not None and (type(precipitation) == float or type(precipitation) == int) 
+        and precipitation >= 0 and precipitation <= 1):
+
+        return f"{int(precipitation * 100)} %"
     else:
         return ""
 
@@ -102,10 +102,7 @@ def validate_formats(weather_data, forecast_data):
 
         formats["forecast_precipitation"] = format_precipitation(first_forecast.get("pop"))
 
-        # formats["forecast_rain"] = format_rain(first_forecast.get("rain").get("3h"))
-
-
         return all(value != "" for value in formats.values())
     except Exception as e:
-        print(e)
+        print(f"Exception thrown while validating all formats: {e}")
         return False
